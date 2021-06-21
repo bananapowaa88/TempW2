@@ -79,9 +79,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-const port = 5001;
-const server = app.listen(port, () => {
-  console.log('Listening on port ' + port);
-})
 
 module.exports = app;
