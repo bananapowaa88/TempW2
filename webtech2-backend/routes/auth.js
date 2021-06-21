@@ -60,7 +60,7 @@ router.post("/login", (req, res, next) => {
 
 router.get('/logout', function (req, res) {
     req.logout();
-    res.redirect('/');
+    res.status(200).send();
 });
 
 module.exports = router;

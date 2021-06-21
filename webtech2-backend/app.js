@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const dbConfig = require('./database/db.js');
+var bodyParser = require('body-parser');
+
 
 const passport = require("./passport/setup");
 
@@ -65,6 +67,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Express Session
 app.use(

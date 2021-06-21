@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const ItemSchema = require("./Item");
 
 const ThirdPartyProviderSchema = new mongoose.Schema({
     provider_name: {
@@ -52,7 +53,9 @@ const UserSchema = new mongoose.Schema(
         date: {
             type: Date,
             default: Date.now
-        }
+        },
+
+        items: [ItemSchema]
     },
     { strict: false }
 );
