@@ -4,8 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
-
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const dbConfig = require('./database/db.js');
+
+const passport = require("./passport/setup");
 
 //Setup db
 mongoose.Promise = global.Promise;
@@ -48,6 +51,8 @@ process.on('SIGINT', function () {
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const auth = require("./routes/auth");
+
 
 var app = express();
 
@@ -61,8 +66,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Express Session
+app.use(
+  session({
+    secret: "very secret this is",
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({ mongoUrl: "mongodb://localhost:27017/webtech2" })
+  })
+);
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use("/auth", auth);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
