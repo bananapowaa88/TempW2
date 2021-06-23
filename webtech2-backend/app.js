@@ -75,6 +75,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Express Session
 app.use(
   session({
+    //Should be generated :D
     secret: "very secret this is",
     resave: false,
     saveUninitialized: true,

@@ -1,5 +1,5 @@
 <mat-card>
-    <form (submit)="onLogin(loginForm)" #loginForm="ngForm">
+    <form (submit)="onSubmit(loginForm, $event)" #loginForm="ngForm">
         <mat-form-field>
             <input matInput name="email" ngModel type="email" placeholder="E-mail" #emailInput="ngModel" required email>
             <mat-error *ngIf="emailInput.invalid">Please enter a valid e-mail.</mat-error>
@@ -9,7 +9,10 @@
                 required>
             <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
         </mat-form-field>
-        <button mat-raised-button color="accent" type="submit">Login</button>
+
+        <span *ngIf="serverError">{{serverError}}</span>
+        <button mat-raised-button color="secondary" type="submit" id="login">Login</button>
+        <button mat-raised-button color="accent" type="submit" id="register">Register</button>
 
     </form>
 </mat-card>
