@@ -20,7 +20,6 @@ export class ItemsComponent implements OnInit {
   ngOnInit(): void {
     this.backendService.getItems().subscribe(
       response => {
-        console.log(response);
         this.items = response;
       },
       error => {
@@ -51,12 +50,12 @@ export class ItemsComponent implements OnInit {
       return;
     }
 
-    console.log(this.modifyItem)
     if (this.modifyItem._id) {
 
       this.backendService.changeItem(this.modifyItem).subscribe(
         response => {
           this.items[i] = response;
+          this.onModifyCancel();
         },
 
         error => {
@@ -69,6 +68,8 @@ export class ItemsComponent implements OnInit {
       this.backendService.addItem(this.modifyItem).subscribe(
         response => {
           this.items[i] = response;
+          this.onModifyCancel();
+
         },
 
         error => {
@@ -91,7 +92,6 @@ export class ItemsComponent implements OnInit {
 
     this.backendService.deleteItem(item._id).subscribe(
       response => {
-        console.log(this.items, this.items.indexOf(item));
         this.items.splice(index, 1);
       },
       error => {

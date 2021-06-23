@@ -13,7 +13,6 @@ export class AuthGuard implements CanActivate {
         let isAuth: boolean = await new Promise((resolve, reject) => {
             this.backendService.isAuthenticated().subscribe(
                 response => {
-                    console.log(response);
                     resolve(true);
                 },
                 error => {

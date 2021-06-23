@@ -19,8 +19,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm, event: any) {
-    console.log(event.submitter.id);
-
     if (event.submitter.id == 'register') {
       this.onRegister(form)
     } else {
@@ -37,7 +35,6 @@ export class LoginComponent implements OnInit {
 
     this.backendService.login(form.value.email, form.value.password).subscribe(
       response => {
-        console.log(response);
         this.router.navigate(['/items']);
       },
       error => {
@@ -55,7 +52,6 @@ export class LoginComponent implements OnInit {
 
     this.backendService.register(form.value.email, form.value.password).subscribe(
       response => {
-        console.log(response);
         this.router.navigate(['/items']);
       },
       error => {

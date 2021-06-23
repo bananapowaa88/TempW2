@@ -7,7 +7,6 @@ router.post("/register", (req, res, next) => {
     const search = User.find({
         email: req.body.email
     }, function (error, data) {
-        console.log(data);
         if (data.length) {
             res.status(400).send("User exists");
             return;
@@ -45,7 +44,7 @@ router.post("/login", (req, res, next) => {
                 return res.status(400).json({ errors: err });
             }
             if (!user) {
-                return res.status(401).json({ errors: "Bad credentials" });
+                return res.status(401).send("Bad credentials");
             }
             req.logIn(user, function (err) {
                 if (err) {
