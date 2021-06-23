@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Item } from '../../models/Item';
+import { BackendService } from '../../services/backend.service';
+
 
 @Component({
   selector: 'app-items',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItemsComponent implements OnInit {
 
-  constructor() { }
+  items: Item[] = [];
+
+  constructor(private backendService: BackendService) { }
 
   ngOnInit(): void {
+    this.backendService.getItems().subscribe(
+      response => {
+        console.log(response);
+        this.items = response;
+      },
+      error => {
+        console.log(error);
+      });
   }
 
 }

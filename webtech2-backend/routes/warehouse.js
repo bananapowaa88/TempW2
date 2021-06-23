@@ -7,6 +7,7 @@ const Item = require('../models/Item');
 router.get('/', function (req, res, next) {
     if (!req.user) {
         res.status(401).send('Not authenticated!');
+        return
     }
 
     res.status(200).json(req.user.items);
@@ -15,6 +16,7 @@ router.get('/', function (req, res, next) {
 router.post('/add', function (req, res) {
     if (!req.user) {
         res.status(401).send('Not authenticated!');
+        return;
     }
 
     User.findById(req.user.id, (error, user) => {
@@ -66,6 +68,7 @@ router.put('/change/:id', function (req, res) {
 router.delete('/delete/:id', function (req, res) {
     if (!req.user) {
         res.status(401).send('Not authenticated!');
+        return;
     }
 
     User.findById(req.user.id, (error, user) => {

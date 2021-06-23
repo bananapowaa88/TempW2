@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
     console.log(form);
 
-    this.backendService.register(form.value.email, form.value.password).subscribe(
+    this.backendService.login(form.value.email, form.value.password).subscribe(
       response => {
         console.log(response);
       },

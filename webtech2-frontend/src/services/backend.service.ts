@@ -10,10 +10,10 @@ import { User } from '../models/User';
 export class BackendService {
 
     constructor(private http: HttpClient) { }
-    baseUrl = 'http://localhost:3000/';
+    baseUrl = 'http://localhost:4200/api/';
 
     getUser(): Observable<any> {
-        return this.http.get(`${this.baseUrl}/users`);
+        return this.http.get(`${this.baseUrl}/users`, { withCredentials: true });
     }
 
 
@@ -23,7 +23,8 @@ export class BackendService {
         body.set('password', password);
 
         let options = {
-            headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+            headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),
+            withCredentials: true
         };
 
         return this.http.post(`${this.baseUrl}auth/register`, body.toString(), options)
@@ -35,22 +36,27 @@ export class BackendService {
         body.set('password', password);
 
         let options = {
-            headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+            headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),
+            withCredentials: true
         };
 
 
         return this.http.post(`${this.baseUrl}auth/login`, body.toString(), options);
     }
 
+    getItems(): Observable<any> {
+        return this.http.get(`${this.baseUrl}warehouse/`, { withCredentials: true });
+    }
+
     addItem(data: Item): Observable<any> {
-        return this.http.post(`${this.baseUrl}warehouse/create`, data);
+        return this.http.post(`${this.baseUrl}warehouse/create`, data, { withCredentials: true });
     }
 
     changeItem(data: Item): Observable<any> {
-        return this.http.post(`${this.baseUrl}warehouse/change/${data._id}`, data);
+        return this.http.put(`${this.baseUrl}warehouse/change/${data._id}`, data, { withCredentials: true });
     }
 
     deleteItem(id: string): Observable<any> {
-        return this.http.delete(`${this.baseUrl}warehouse/delete/${id}`);
+        return this.http.delete(`${this.baseUrl}warehouse/delete/${id}`, { withCredentials: true });
     }
 }

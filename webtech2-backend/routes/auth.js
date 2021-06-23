@@ -5,8 +5,9 @@ const passport = require("passport");
 router.post("/register", (req, res, next) => {
     const User = require('../models/User');
     const search = User.find({
-        email: req.query.email
+        email: req.body.email
     }, function (error, data) {
+        console.log(data);
         if (data.length) {
             res.status(400).send("User exists");
             return;
@@ -32,7 +33,7 @@ router.post("/register", (req, res, next) => {
 
 router.post("/login", (req, res, next) => {
     const search = User.find({
-        email: req.query.email
+        email: req.body.email
     }, function (error, data) {
         if (!data.length) {
             res.status(400).send("User not exists");
