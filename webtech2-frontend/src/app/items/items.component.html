@@ -1,12 +1,20 @@
 <mat-accordion multi="true">
-    <mat-expansion-panel *ngFor="let item of items">
+    <button (click)="onAdd()">Add</button>
+    <mat-expansion-panel [expanded]="item._id === modifyId" *ngFor="let item of items;let i = index">
         <mat-expansion-panel-header>
             <mat-panel-title>{{item.name}}</mat-panel-title>
         </mat-expansion-panel-header>
         <mat-list *ngIf="item._id === modifyId; then thenBlock else elseBlock">
         </mat-list>
         <ng-template #thenBlock>
-            <mat-list-item><b>editing name: </b> {{item.name}}</mat-list-item>
+            <form (submit)="onSave(itemForm, i)" #itemForm="ngForm">
+                <mat-form-field>
+                    <input matInput name="name" ngModel type="text" placeholder="Name" #nameInput="ngModel"
+                        [(ngModel)]="modifyItem.name" required>
+                    <mat-error *ngIf="nameInput.invalid">Please enter a valid name.</mat-error>
+                </mat-form-field>
+                <button mat-raised-button color="accent" type="submit">Save</button>
+            </form>
         </ng-template>
         <ng-template #elseBlock>
             <mat-list-item><b>name: </b> {{item.name}}</mat-list-item>
@@ -15,7 +23,7 @@
         <mat-action-row>
             <button *ngIf="item._id === modifyId" mat-button color="warn" (click)="onModifyCancel()">Cancel</button>
             <button *ngIf="item._id != modifyId" mat-button color="warn" (click)="onModify(item)">Modify</button>
-            <button mat-button color="warn" (click)="onDelete(item)">Delete</button>
+            <button mat-button color="warn" (click)="onDelete(item, i)">Delete</button>
         </mat-action-row>
     </mat-expansion-panel>
 </mat-accordion>

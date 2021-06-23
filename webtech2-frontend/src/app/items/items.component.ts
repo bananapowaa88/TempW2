@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Item } from '../../models/Item';
 import { BackendService } from '../../services/backend.service';
 
@@ -12,6 +13,7 @@ export class ItemsComponent implements OnInit {
 
   items: Item[] = [];
   modifyId: string | null = null;
+  modifyItem: Item = { _id: "", name: "" } as Item;
 
   constructor(private backendService: BackendService) { }
 
@@ -26,21 +28,66 @@ export class ItemsComponent implements OnInit {
       });
   }
 
+  onAdd() {
+    if (this.items.length && !this.items[this.items.length - 1]._id) //Aleready adding
+      return
+
+    this.items.push({ _id: "", name: "" } as Item);
+    this.onModify(this.items[this.items.length - 1])
+  }
+
   onModify(item: Item) {
     this.modifyId = item._id;
+    this.modifyItem = { ...item } as Item;
   }
 
   onModifyCancel() {
     this.modifyId = null;
   }
 
-  onDelete(item: Item) {
+  onSave(form: NgForm, i: number) {
+
+    if (form.invalid) {
+      return;
+    }
+
+    console.log(this.modifyItem)
+    if (this.modifyItem._id) {
+
+      this.backendService.changeItem(this.modifyItem).subscribe(
+        response => {
+          this.items[i] = response;
+        },
+
+        error => {
+          console.log(error);
+        }
+      )
+
+    } else {
+
+      this.backendService.addItem(this.modifyItem).subscribe(
+        response => {
+          this.items[i] = response;
+        },
+
+        error => {
+          console.log(error);
+        }
+      )
+    }
+
+
+
+  }
+
+  onDelete(item: Item, index: number) {
     console.log(item);
 
     this.backendService.deleteItem(item._id).subscribe(
       response => {
         console.log(this.items, this.items.indexOf(item));
-        this.items.splice(this.items.indexOf(item), 1);
+        this.items.splice(index, 1);
       },
       error => {
         console.log(error);

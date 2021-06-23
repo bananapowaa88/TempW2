@@ -21,6 +21,8 @@ router.post('/add', function (req, res) {
 
     User.findById(req.user.id, (error, user) => {
 
+        delete req.body._id;
+
         user.items.push(req.body);
 
         user.save()

@@ -55,7 +55,7 @@ export class BackendService {
     }
 
     addItem(data: Item): Observable<any> {
-        return this.http.post(`${this.baseUrl}warehouse/create`, data, { withCredentials: true });
+        return this.http.post(`${this.baseUrl}warehouse/add`, data, { withCredentials: true });
     }
 
     changeItem(data: Item): Observable<any> {
