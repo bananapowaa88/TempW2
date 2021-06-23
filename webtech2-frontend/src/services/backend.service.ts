@@ -63,6 +63,6 @@ export class BackendService {
     }
 
     deleteItem(id: string): Observable<any> {
-        return this.http.delete(`${this.baseUrl}warehouse/delete/${id}`, { withCredentials: true });
+        return this.http.delete(`${this.baseUrl}warehouse/delete/${id}`, { withCredentials: true, responseType: 'text' });
     }
 }

@@ -1,6 +1,6 @@
 export class Item {
-    name: String
-    _id: String;
+    name: string
+    _id: string;
 
     constructor(private item: Item) {
         this.name = item.name;

@@ -1,1 +1,21 @@
-<p>items works!</p>
+<mat-accordion multi="true">
+    <mat-expansion-panel *ngFor="let item of items">
+        <mat-expansion-panel-header>
+            <mat-panel-title>{{item.name}}</mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list *ngIf="item._id === modifyId; then thenBlock else elseBlock">
+        </mat-list>
+        <ng-template #thenBlock>
+            <mat-list-item><b>editing name: </b> {{item.name}}</mat-list-item>
+        </ng-template>
+        <ng-template #elseBlock>
+            <mat-list-item><b>name: </b> {{item.name}}</mat-list-item>
+        </ng-template>
+
+        <mat-action-row>
+            <button *ngIf="item._id === modifyId" mat-button color="warn" (click)="onModifyCancel()">Cancel</button>
+            <button *ngIf="item._id != modifyId" mat-button color="warn" (click)="onModify(item)">Modify</button>
+            <button mat-button color="warn" (click)="onDelete(item)">Delete</button>
+        </mat-action-row>
+    </mat-expansion-panel>
+</mat-accordion>

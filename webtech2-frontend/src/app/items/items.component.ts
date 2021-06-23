@@ -11,6 +11,7 @@ import { BackendService } from '../../services/backend.service';
 export class ItemsComponent implements OnInit {
 
   items: Item[] = [];
+  modifyId: string | null = null;
 
   constructor(private backendService: BackendService) { }
 
@@ -24,5 +25,28 @@ export class ItemsComponent implements OnInit {
         console.log(error);
       });
   }
+
+  onModify(item: Item) {
+    this.modifyId = item._id;
+  }
+
+  onModifyCancel() {
+    this.modifyId = null;
+  }
+
+  onDelete(item: Item) {
+    console.log(item);
+
+    this.backendService.deleteItem(item._id).subscribe(
+      response => {
+        console.log(this.items, this.items.indexOf(item));
+        this.items.splice(this.items.indexOf(item), 1);
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
 
 }

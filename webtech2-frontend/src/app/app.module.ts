@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTableModule } from '@angular/material/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,8 @@ import { HeaderComponent } from './header/header.component';
 import { ItemsComponent } from './items/items.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FormsModule } from '@angular/forms';
+import { MatListModule } from '@angular/material/list';
+
 
 import { AuthGuard } from './auth.guard';
 
@@ -41,7 +44,9 @@ import { AuthGuard } from './auth.guard';
     MatInputModule,
     MatButtonModule,
     MatDividerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTableModule,
+    MatListModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
