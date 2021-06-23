@@ -1,5 +1,4 @@
 <mat-accordion multi="true">
-    <button (click)="onAdd()">Add</button>
     <mat-expansion-panel [expanded]="item._id === modifyId" *ngFor="let item of items;let i = index">
         <mat-expansion-panel-header>
             <mat-panel-title>{{item.name}}</mat-panel-title>
@@ -13,17 +12,25 @@
                         [(ngModel)]="modifyItem.name" required>
                     <mat-error *ngIf="nameInput.invalid">Please enter a valid name.</mat-error>
                 </mat-form-field>
-                <button mat-raised-button color="accent" type="submit">Save</button>
+
+                <br>
+                <button mat-raised-button color="primary" type="submit">Save</button>
             </form>
         </ng-template>
         <ng-template #elseBlock>
             <mat-list-item><b>name: </b> {{item.name}}</mat-list-item>
+            <mat-list-item *ngIf="item.createdAt"><b>Created at: </b> {{item.createdAt}}</mat-list-item>
+            <mat-list-item *ngIf="item.updatedAt"><b>Updated at: </b> {{item.updatedAt}}</mat-list-item>
+
+
         </ng-template>
 
         <mat-action-row>
-            <button *ngIf="item._id === modifyId" mat-button color="warn" (click)="onModifyCancel()">Cancel</button>
-            <button *ngIf="item._id != modifyId" mat-button color="warn" (click)="onModify(item)">Modify</button>
+            <button *ngIf="item._id === modifyId" mat-button color="secondary"
+                (click)="onModifyCancel()">Cancel</button>
+            <button *ngIf="item._id != modifyId" mat-button color="primary" (click)="onModify(item)">Modify</button>
             <button mat-button color="warn" (click)="onDelete(item, i)">Delete</button>
         </mat-action-row>
     </mat-expansion-panel>
+    <button (click)="onAdd()" mat-raised-button color="accent">Add</button>
 </mat-accordion>

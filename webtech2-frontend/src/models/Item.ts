@@ -1,6 +1,9 @@
 export class Item {
-    name: string
+    name: string;
     _id: string;
+    createdAt!: Date | null
+    updatedAt!: Date | null
+
 
     constructor(protected item: Item) {
         this.name = item.name;

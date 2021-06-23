@@ -84,6 +84,11 @@ export class ItemsComponent implements OnInit {
   onDelete(item: Item, index: number) {
     console.log(item);
 
+    if (!item._id) {
+      this.items.splice(index, 1);
+      return;
+    }
+
     this.backendService.deleteItem(item._id).subscribe(
       response => {
         console.log(this.items, this.items.indexOf(item));
