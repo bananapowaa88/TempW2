@@ -1,4 +1,5 @@
 <mat-toolbar color="primary">
     <h1 class="primary">B00P5Y - Nyilvántartó rendszer</h1>
-    <button (click)="onLogout()" mat-raised-button color="accent">Logout</button>
+    <button class="logout" *ngIf="router.url != '/login'" (click)="onLogout()" mat-raised-button
+        color="accent">Logout</button>
 </mat-toolbar>
