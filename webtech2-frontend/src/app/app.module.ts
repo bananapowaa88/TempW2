@@ -19,6 +19,8 @@ import { ItemsComponent } from './items/items.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FormsModule } from '@angular/forms';
 
+import { AuthGuard } from './auth.guard';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +43,7 @@ import { FormsModule } from '@angular/forms';
     MatDividerModule,
     MatExpansionModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

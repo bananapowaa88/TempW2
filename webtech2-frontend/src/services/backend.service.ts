@@ -44,6 +44,12 @@ export class BackendService {
         return this.http.post(`${this.baseUrl}auth/login`, body.toString(), options);
     }
 
+    public isAuthenticated(): Observable<any> {
+        // Check whether the token is expired and return
+        // true or false
+        return this.http.get(`${this.baseUrl}users`, { withCredentials: true });
+    }
+
     getItems(): Observable<any> {
         return this.http.get(`${this.baseUrl}warehouse/`, { withCredentials: true });
     }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BackendService } from '../../services/backend.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { BackendService } from '../../services/backend.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private backendService: BackendService) { }
+  constructor(private backendService: BackendService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
     this.backendService.login(form.value.email, form.value.password).subscribe(
       response => {
         console.log(response);
+        this.router.navigate(['/items']);
       },
       error => {
         console.log(error);
